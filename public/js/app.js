@@ -1,8 +1,21 @@
 $(document).ready(function() {
-    $('td.totaler-field input').keyup(function() {
+    var updateTotal = function() {
+        var total = 0.0;
+        $('.row-total').each(function(i, td) {
+            var subtotal = parseFloat($(td).text().substring(1));
+            if (!isNaN(subtotal)) {
+                total += subtotal;
+            }
+        });
+        $('#total').html('$' + total);
+    };
+
+    $('form').on('keyup', 'td.totaler-field input', function() {
         var row = $(this).closest('tr');
         var fields = row.find('td.totaler-field input');
         row.find('.row-total').html("$" + ($(fields[0]).val() * $(fields[1]).val()));
+
+        updateTotal();
     });
 
     $('button#add-row').click(function() {

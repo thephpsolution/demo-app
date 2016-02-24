@@ -29,7 +29,10 @@ class Module
                 $routeMatch = $e->getRouteMatch();
                 $sm = $app->getServiceManager();
                 $auth = $sm->get('zfcuser_auth_service');
-                if (!$auth->hasIdentity() && $routeMatch->getMatchedRouteName() != 'zfcuser/login') {
+                $whitelist = [
+                    'zfcuser/login', 'zfcuser/register'
+                ];
+                if (!$auth->hasIdentity() && !in_array($routeMatch->getMatchedRouteName(), $whitelist)) {
                     $response = $e->getResponse();
                     $response->getHeaders()->addHeaderLine(
                         'Location',

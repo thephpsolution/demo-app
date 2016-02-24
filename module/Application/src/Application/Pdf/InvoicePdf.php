@@ -36,9 +36,9 @@ class InvoicePdf extends Pdf
             $data = array_merge($data, [
                 "developer_$i"      => $log ? $log->getDeveloper() : '',
                 "description_$i"    => $log ? $log->getDescription() : '',
-                "hourly_rate_$i"    => $log ? $log->getHourlyPrice() : '',
+                "hourly_rate_$i"    => $log ? '$' . money_format('%i', $log->getHourlyPrice()) : '',
                 "hours_$i"          => $log ? $log->getHours() : '',
-                "total_price_$i"    => $log ? $log->getTotal() : '',
+                "total_price_$i"    => $log ? '$' . money_format($log->getTotal()) : '',
             ]);
         }
 
@@ -46,7 +46,7 @@ class InvoicePdf extends Pdf
             'date'              => $invoice->getInvoicedOn()->format('Y-m-d'),
             'invoice_number'    => $invoice->getInvoiceNumber(),
             'customer_id'       => $invoice->getCustomerId(),
-            'total'             => $invoice->getTotal(),
+            'total'             => '$' . money_format($invoice->getTotal()),
             'bill_to'           => $invoice->getBillTo(),
             'comments'          => $invoice->getComments(),
         ]));
