@@ -7,6 +7,9 @@ bootstrap app with jQuery to provide the simple in-page dynamic features.
 This should illustrate well how I would approach this problem: use off-the-shelf packages where available, take
 advantage of the Zend Form validation, use Doctrine, OOP principles, etc.
 
+The form fill on PDFs is done using PdfTk. See Application\Pdf\InvoicePdf for the class to create a PDF from an Invoice
+entity.
+
 Technologies not used here that I typically would for normal projects:
 - Bower
 - Vagrant
