@@ -16,3 +16,8 @@ Technologies not used here that I typically would for normal projects:
 - PhpUnit
 - Behat
 - Grunt
+
+Live Demo
+=========
+I had too many incorrect login attempts when SSHing to my host. Since I'm locked out until my support ticket is
+addressed, I stored screenshots in /docs/ to cover the features.
