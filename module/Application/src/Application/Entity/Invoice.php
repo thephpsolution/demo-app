@@ -271,6 +271,8 @@ class Invoice implements ArraySerializableInterface
      */
     public function getArrayCopy()
     {
-        return get_object_vars($this);
+        return [
+            'invoicedOn'    => $this->invoicedOn->format('Y-m-d')
+        ];
     }
 }

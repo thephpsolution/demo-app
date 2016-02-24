@@ -24,6 +24,7 @@ class InvoiceController extends AbstractActionController
     public function indexAction()
     {
         $form = (new AnnotationBuilder())->createForm(Invoice::class);
+        $form->populateValues((new Invoice())->getArrayCopy());
         return new ViewModel([
             'form'  => $form
         ]);
