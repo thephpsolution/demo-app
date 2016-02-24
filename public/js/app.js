@@ -15,7 +15,8 @@ $(document).ready(function() {
             .find('input')
             .attr('name', function(i, val) {
                 return val.replace(count - 1, count);
-            }).val(''); // it may copy values from first one
+            })
+            .val('');
         $(row).slideDown(1000);
     });
 });
