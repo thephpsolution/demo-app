@@ -44,6 +44,8 @@ class InvoiceController extends AbstractActionController
                 $pdf = new InvoicePdf();
                 $pdf->bind($invoice)->flatten()->send("invoice.pdf");
 
+                // $invoice is now a complete entity, we could just $this->em()->persist() and flush() it for persistence!
+
                 return $this->redirect()->toRoute('home');
             } else {
                 // Flash back with form errors
