@@ -1,0 +1,91 @@
+<?php
+$formLabel = $this->plugin('formLabel');
+$helper = function($form) use ($formLabel) {
+    echo $formLabel->openTag();
+    echo $this->formInput($form);
+    echo $this->formElementErrors($form);
+    echo $formLabel->closeTag();
+};
+// within a view script
+$form = $this->form;
+$form->prepare();
+
+// Assuming the "contact/process" route exists...
+$form->setAttribute('action', '/application/invoice/create');
+
+// Set the method attribute for the form
+$form->setAttribute('method', 'post');
+
+// Render the opening tag
+echo $this->form()->openTag($form);
+?>
+<div class="container">
+    <div class="row">
+        <div class="col-md-7">
+            <div class="form_element"><?php
+                echo $this->formRow($form->get('billTo'));
+                ?></div>
+        </div>
+        <div class="col-md-4 col-md-offset-1">
+            <div class="form_element"><?php
+                echo $this->formRow($form->get('invoicedOn'));
+                ?></div>
+            <div class="form_element"><?php
+                echo $this->formRow($form->get('invoiceNumber'));
+                ?></div>
+            <div class="form_element"><?php
+                echo $this->formRow($form->get('customerId'));
+                ?></div>
+
+        </div>
+        <div class="row">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Developer</th>
+                        <th>Description</th>
+                        <th>Hourly Price</th>
+                        <th>Hours</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($form->get('logs') as $k => $log) { ?>
+                        <tr class="item-row">
+                            <td><?php $helper($log->get('developer')); ?></td>
+                            <td><?php $helper($log->get('description')); ?></td>
+                            <td class="totaler-field"><?php $helper($log->get('hourlyPrice')); ?></td>
+                            <td class="totaler-field"><?php $helper($log->get('hours')); ?></td>
+                            <td class="row-total"></td>
+                        </tr>
+                    <?php } ?>
+<!--                    --><?php //for ($i = count($form->get('logs')); $i <= 5; $i++) { ?>
+<!--                        <tr class="item-row">-->
+<!--                            <td><label><input name="logs[--><?php //echo $i; ?><!--][developer]" value="" type="text"></label></td>-->
+<!--                            <td><label><input name="logs[--><?php //echo $i; ?><!--][description]" value="" type="text"></label></td>-->
+<!--                            <td class="totaler-field"><label><input name="logs[--><?php //echo $i; ?><!--][hourlyPrice]" value="" type="number"></label></td>-->
+<!--                            <td class="totaler-field"><label><input name="logs[--><?php //echo $i; ?><!--][hours]" value="" type="number"></label></td>-->
+<!--                            <td class="row-total"></td>-->
+<!--                        </tr>-->
+<!--                    --><?php //} ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-7">
+            <div class="form_element"><?php
+                echo $this->formRow($form->get('comments'));
+                ?></div>
+        </div>
+        <div class="col-md-4 col-md-offset-1" style="text-align: right; font-weight: bold;">
+            <div>Total: <span id="total">$0.00</span></div>
+            <button id="add-row" type="button" class="btn btn-info">Add Item</button>
+            <button type="submit" class="btn btn-primary">Create PDF</button>
+        </div>
+    </div>
+</div>
+
+
+
+<?php echo $this->form()->closeTag() ?>
