@@ -17,6 +17,36 @@ Technologies not used here that I typically would for normal projects:
 - Behat
 - Grunt
 
+Local Demo
+==========
+After cloning the repository and ensuring you have pdftk installed for the PDF generation, create the following file in
+ config/autoload/local.php:
+```php
+<?php
+return array(
+    'doctrine' => array(
+        'connection' => array(
+            'orm_default' => array(
+                'driverClass' => 'Doctrine\DBAL\Driver\PDOMySql\Driver',
+                'params' => array(
+                    'host'     => 'localhost',
+                    'port'     => '3306',
+                    'user'     => '',
+                    'password' => '',
+                    'dbname'   => 'sherman',
+                )
+            )
+        )
+    ),
+);
+```
+
+Now, run the following command to generate the schema from the entities:
+
+```
+$ php vendor/doctrine/doctrine-module/bin/doctrine-module orm:schema-tool:create
+```
+
 Live Demo
 =========
 I had too many incorrect login attempts when SSHing to my host. Since I'm locked out until my support ticket is
