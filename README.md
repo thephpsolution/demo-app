@@ -19,8 +19,13 @@ Technologies not used here that I typically would for normal projects:
 
 Local Demo
 ==========
-After cloning the repository and ensuring you have pdftk installed for the PDF generation, create the following file in
- config/autoload/local.php:
+After cloning the repository and ensuring you have pdftk installed for the PDF generation, do a composer install:
+
+```
+$ composer install
+```
+
+Now,  create the following file in config/autoload/local.php:
 ```php
 <?php
 return array(
@@ -41,7 +46,7 @@ return array(
 );
 ```
 
-Now, run the following command to generate the schema from the entities:
+After you have created the sherman database, now run the following command to generate the schema from the entities:
 
 ```
 $ php vendor/doctrine/doctrine-module/bin/doctrine-module orm:schema-tool:create
